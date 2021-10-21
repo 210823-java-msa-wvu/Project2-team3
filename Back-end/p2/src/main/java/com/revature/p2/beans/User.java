@@ -23,7 +23,7 @@ import java.util.Date;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     @Email(message = "Username needs to be email")
     @NotBlank(message = "Username is required")
     @Column(unique = true)
