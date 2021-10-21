@@ -1,8 +1,8 @@
 # Project2-team3
 User Story
-- User login
-- Chat Window
-- Random Number/Dice Roll Generator
+- User login - Yungdrung
+- Chat Window - Anthony
+- Random Number/Dice Roll Generator - Nick
 
 Stretch
 - Make a gameboard
