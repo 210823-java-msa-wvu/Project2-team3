@@ -2,21 +2,21 @@
    <div class="container ">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="card my-5 p-5 bg-red shadow-md rounded-5">
-                    <form class="p-3">
+                <div class="p-5 my-5 shadow-md card bg-red rounded-5">
+                    <form class="p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                       <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label text-light">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="username" class="form-label text-light">Username</label>
+                        <input type="email" class="form-control" id="usename" formControlName="username">
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label text-light">Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" id="password" formControlName="password">
                       </div>
                       <div class="mb-3">
                         <label for="confirmPassword" class="form-label text-light">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword">
+                        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
                       </div>
-        
+
                       <button type="submit" class="btn btn-outline-light">Register</button>
                     </form>
                 </div>

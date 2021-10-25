@@ -25,6 +25,7 @@ import java.util.List;
 import static com.revature.p2.security.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 @Slf4j
 public class UserController {

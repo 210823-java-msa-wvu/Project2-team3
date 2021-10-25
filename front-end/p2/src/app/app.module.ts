@@ -9,6 +9,9 @@ import { HeroComponent } from './components/hero/hero.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import {FormsModule, ReactiveFormsModule} from  '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +21,14 @@ import { RegisterComponent } from './components/register/register.component';
     HeroComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
