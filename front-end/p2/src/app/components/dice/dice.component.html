@@ -1,0 +1,16 @@
+<!-- <div class="diceroll" (click)="diceroll">
+    
+</div> -->
+<div class="diceRoller">
+    <div>
+        <!-- <div class="square" *ngFor="let diceValue of diceValues">
+            <span>{{ diceValue }}</span>
+        </div> -->
+        <h2>{{ diceNumber }}</h2>
+    </div>
+    <button type="button" id="roll-button" (click)="diceroll()">Roll Dice!</button>
+
+    <div *ngIf="diceNumber == 20">
+        <h1>NATURAL 20!!!!!</h1>
+    </div>
+</div>
