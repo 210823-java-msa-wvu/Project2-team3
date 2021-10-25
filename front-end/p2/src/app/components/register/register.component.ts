@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -7,29 +9,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  registerForm = new FormGroup(
+    {
+      username: new FormControl( '',
+        [Validators.required , Validators.email]
+      ),
+      password: new FormControl('',
+        [Validators.required, Validators.minLength(5)]
+      ),
+      confirmPassword: new FormControl('',
+        [Validators.required, Validators.minLength(5)]
+      )
+    }
+  )
 
-  ngOnInit(): void {
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    // (function () {
-    //   'use strict'
+  constructor(
+    private authService: AuthenticationService
+    ) { }
 
-    //   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    //   var forms = document.querySelectorAll('.needs-validation')
+  ngOnInit(): void {}
 
-    //   // Loop over them and prevent submission
-    //   Array.prototype.slice.call(forms)
-    //     .forEach(function (form) {
-    //       form.addEventListener('submit', function (event) {
-    //         if (!form.checkValidity()) {
-    //           event.preventDefault()
-    //           event.stopPropagation()
-    //         }
+  onSubmit(){
+    if(this.registerForm.invalid){
+      return;
+    }
+    console.log(this.registerForm.value);
+    this.authService.signup(this.registerForm.value).subscribe(
+     {
+       next: response => {
+          console.log(this);
+          //navigate to some other route
+       },
+       error: (err) =>{
+          console.log(err);
+       }
 
-    //         form.classList.add('was-validated')
-    //       }, false)
-    //     })
-    // })()
+     }
+    );
   }
 
 }
+

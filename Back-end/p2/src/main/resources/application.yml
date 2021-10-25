@@ -1,7 +1,7 @@
-spring:
-  datasource:
-    generate-unique-name: false
-  h2:
-    console:
-      enable: true
-      path: /h2-console
+#spring:
+#  datasource:
+#    generate-unique-name: false
+#  h2:
+#    console:
+#      enable: true
+#      path: /h2-console
