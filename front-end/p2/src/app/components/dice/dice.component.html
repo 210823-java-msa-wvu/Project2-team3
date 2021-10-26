@@ -1,0 +1,59 @@
+<!-- <div class="diceroll" (click)="diceroll">
+    
+</div> -->
+<style>
+    div {text-align: center;}
+
+    .column {
+        float: left;
+        width: 33.3%;
+    }
+    /* .row::after {
+        content: "";
+        display: table;
+        clear: both;
+    } */
+</style>
+<div class="diceRoller">
+    <div id="dicerolling" class="container">
+
+        <div *ngIf="diceNumber == 20">
+            <h1>NATURAL 20!!!!!</h1>
+        </div> 
+        <h2>{{ diceNumber }}</h2>
+                        
+        <button type="button" id="roll-button" (click)="diceroll()">Roll Dice!</button>
+        <button type="button" id="roll-button" (click)="clearRoll()">Clear Roll</button>
+         
+    </div>  
+    <br>
+    <br>
+    <div class="row">
+        <div class="column">
+            <h2>{{ diceNumberOne }}</h2>
+            <button type="button" id="roll-button" (click)="dicerollOne()">Roll Dice!</button>
+            <button type="button" id="roll-button" (click)="clearDiceOne()">Clear Roll</button>
+        </div>
+        <div class="column">
+            <div *ngIf="diceNumberOne > diceNumberTwo">
+                <h2>Attacking Player has hit Defending Player.</h2> 
+            </div>
+            <div *ngIf="diceNumberTwo > diceNumberOne; else elseBlock">
+                <h2>Defending Players has Evading the Attack.</h2>
+            </div>        
+            <div *ngIf="diceNumber == diceNumberTwo">
+                <h2></h2>
+            </div>
+        </div>
+        <ng-template #elseBlock>
+            <h2>Mexican Stand-Off!</h2>
+        </ng-template>
+        <div class="column">
+            <h2>{{ diceNumberTwo }}</h2>
+            <button type="button" id="roll-button" (click)="dicerollTwo()">Roll Dice!</button>
+            <button type="button" id="roll-button" (click)="clearDiceTwo()">Clear Roll</button>
+        </div>
+        
+    </div>
+
+</div>
