@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  // loggedIn$ : BehaviorSubject<boolean>;
+
+  constructor(private authService: AuthenticationService){
+    // this.loggedIn$ = this.authService.loggedIn$;
+  }
 
   ngOnInit(): void {
 

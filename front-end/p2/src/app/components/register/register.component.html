@@ -1,23 +1,54 @@
-<section id="register" class="bg-gray">
+<section id="register" class="">
    <div class="container ">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="p-5 my-5 shadow-md card bg-red rounded-5">
+                <div class="p-5 my-5 shadow-md card bg-dark rounded-5">
                     <form class="p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                       <div class="mb-3">
+                        <label for="firstName" class="form-label text-light">FirstName</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="firstName" [ngClass]="{'is-invalid': submitted && f.firstName.errors}">
+                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                          <div *ngIf="f.firstName.errors.required">firstName is required</div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="lastName" class="form-label text-light">LastName</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName" [ngClass]="{'is-invalid': submitted && f.lastName.errors}">
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                          <div *ngIf="f.lastName.errors.required">LastName is required</div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
                         <label for="username" class="form-label text-light">Username</label>
-                        <input type="email" class="form-control" id="usename" formControlName="username">
+                        <input type="email" class="form-control" id="usename" formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors}">
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                          <div *ngIf="f.username.errors.required">Username is required</div>
+                          <div *ngIf="f.username.errors.email">Username must be email</div>
+                        </div>
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label text-light">Password</label>
-                        <input type="password" class="form-control" id="password" formControlName="password">
+                        <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}">
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                          <div *ngIf="f.password.errors.required">Password is required</div>
+                          <div *ngIf="f.password.errors.minlength">Password must be at least 5 characters</div>
+                        </div>
                       </div>
                       <div class="mb-3">
                         <label for="confirmPassword" class="form-label text-light">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" [ngClass]="{'is-invalid': submitted && f.confirmPassword.errors}">
+                        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                          <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                          <div *ngIf="f.confirmPassword.errors.minlength">Confirm Password must be at least 5 characters</div>
+                        </div>
                       </div>
+                        <div class="form-group">
+                          <button [disabled]="loading" class="btn btn-outline-light" >
+                              <span *ngIf="loading" class="mr-1 spinner-border spinner-border-sm"></span>
+                              Register
+                          </button>
 
-                      <button type="submit" class="btn btn-outline-light">Register</button>
+                        </div>
                     </form>
                 </div>
             </div>

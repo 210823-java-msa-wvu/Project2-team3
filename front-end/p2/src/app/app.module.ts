@@ -10,8 +10,13 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {FormsModule, ReactiveFormsModule} from  '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { AlertComponent } from './components/alert/alert.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UnautherizedComponent } from './components/unautherized/unautherized.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,10 @@ import { AlertComponent } from './components/alert/alert.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    ProfileComponent,
+    UnautherizedComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +39,7 @@ import { AlertComponent } from './components/alert/alert.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{provide: JWT_OPTIONS, useValue: JWT_OPTIONS}, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
