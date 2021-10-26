@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 //@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-@Table(name="characters")
+@Table(name="\"RevatureP2\".characters")
 public class Character {
 
     @Id
