@@ -1,11 +1,12 @@
-#Team Members:
+# Team Members:
 
 - **Nick Knapp**
 - **Anthony Vu**
 - **Yungdrung Gurung**
 
-#Repositories
-- Front-end: 
+# Repositories
+- Front-end: [GitHub Link for Front-End code](https://github.com/210823-java-msa-wvu/Project2-team3/tree/main/front-end/p2).
+- Back-end: [GitHub Link for Back-End code](https://github.com/210823-java-msa-wvu/Project2-team3/tree/main/Back-end/p2).
 
 # Project2-team3
 User Story
