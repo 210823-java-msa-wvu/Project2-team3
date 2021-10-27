@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Pusher from 'pusher-js';
+import { environment } from 'src/environments/environment';
 // import { FormsModule } from '@angular/forms';
 // import { User } from './user';
 // import { UserService } from './user.service';
@@ -41,7 +42,7 @@ export class ChatComponent implements OnInit{
   }
 
   submit(): void{
-    this.http.post('http://localhost:8080/api/messages', {
+    this.http.post(`${environment.apiUrl}api/messages`, {
       username: this.username,
       message: this.message
     }).subscribe(() => this.message = '');

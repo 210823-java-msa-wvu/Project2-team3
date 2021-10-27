@@ -20,11 +20,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "\"RevatureP2\".users")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "FirstName is required")
+    private String firstName;
+    @NotBlank(message = "LastName is required")
+    private String lastName;
     @Email(message = "Username needs to be email")
     @NotBlank(message = "Username is required")
     @Column(unique = true)
@@ -36,6 +40,9 @@ public class User implements UserDetails {
     private String confirmPassword;
     private Date createdAt;
     private Date updatedAt;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
 
     @PrePersist
