@@ -19,13 +19,13 @@ interface loginCredentials{
     password: string;
 }
 
-// interface loggedInResponse{
-//   authenticated: boolean;
-//   username: string;
-//   firstName: string;
-//   lastName: string;
-//   cookie: string;
-// }
+interface loggedInResponse{
+  authenticated: boolean;
+  username: string;
+  firstName: string;
+  lastName: string;
+  cookie: string;
+}
 
 
 
@@ -33,6 +33,8 @@ interface loginCredentials{
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  // isloggedin: boolean | undefined;
 
   expToken: any;
   tokenPayload: any;
@@ -56,8 +58,12 @@ export class AuthenticationService {
 
    }
 
-  login(credentials: loginCredentials){
-    return this.http.post<User>(`${environment.apiUrl}/api/login`, credentials).pipe(
+   public get currentUserValue(): User{
+     return this.currentUserSubject.value;
+   }
+
+  login(user: User){
+    return this.http.post<any>(`${environment.apiUrl}/api/login`, user).pipe(
       map(response => {
         if(response){
           localStorage.setItem('currentUser', JSON.stringify(response));
@@ -68,6 +74,10 @@ export class AuthenticationService {
       })
     );
 
+  }
+
+  checkAuth(){
+    return this.isAuthenticated();
   }
 
   GetTokenDecoded() {
@@ -89,9 +99,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(new User);
   }
 
-  // signup(credentials: SignupCredentials){
-  //   return this.http.post<User>(`${environment.apiUrl}/api/register`, credentials);
-  // }
+
 
 
 
