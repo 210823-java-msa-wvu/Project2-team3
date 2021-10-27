@@ -1,5 +1,5 @@
-#Team Members:
-*Nick Knapp*
+#Team Members:#
+**Nick Knapp**
 *Anthony Vu*
 *Yungdrung Gurung*
 
