@@ -1,7 +1,8 @@
-#Team Members:#
-**Nick Knapp**
-*Anthony Vu*
-*Yungdrung Gurung*
+#Team Members:
+
+- **Nick Knapp**
+- **Anthony Vu**
+- **Yungdrung Gurung**
 
 #Repositories
 - Front-end: 
