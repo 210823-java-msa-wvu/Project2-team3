@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,26 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class HeaderComponent implements OnInit {
 
-  // loggedIn$ : BehaviorSubject<boolean>;
+  currentUser: User = new User;
+    isLoggedIn:boolean = false;
+
 
   constructor(private authService: AuthenticationService){
-    // this.loggedIn$ = this.authService.loggedIn$;
+    this.authService.currentUser.subscribe(data => {
+      this.currentUser = data;
+    });
+
   }
 
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+   console.log(this.currentUser);
+  }
+
+
+  logout(){
+    this.authService.logout();
   }
 
 }

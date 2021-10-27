@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
+import { User } from './_models/user';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +9,19 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = " D & D";
 
-  constructor(private authService: AuthenticationService){
+  currentUser: User = new User;
+
+  constructor(private authService: AuthenticationService, private router: Router){
+    this.authService.currentUser.subscribe(data => {
+      this.currentUser = data;
+    });
   }
 
+
+
   ngOnInit(): void {
-    // this.authService.checkAuth().subscribe(() => {});
+
   }
 }

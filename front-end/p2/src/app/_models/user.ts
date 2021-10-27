@@ -9,4 +9,5 @@ export class User {
   lastName: string = "";
   token: string = "";
   role: Role = Role.USER;
+  success: boolean = false;
 }
