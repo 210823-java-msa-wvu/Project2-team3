@@ -14,7 +14,7 @@ import { AlertComponent } from '../alert/alert.component';
 })
 export class LoginComponent implements OnInit {
   user: User = new User();
-
+  isloggedin: boolean | undefined;
   loading = false;
   submitted = false;
 
@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   ngOnInit(): void {
-    // if(this.alertService.currentUserValue?.id){
-    //   this.router.navigate(['/profile']);
-    // }
+    if(this.authService.currentUserValue?.id){
+      this.router.navigate(['/home']);
+    }
   }
 
   onSubmit(){
@@ -61,6 +61,10 @@ export class LoginComponent implements OnInit {
          this.alertService.success('Login successful', true);
           console.log(this);
           //navigate to some other route
+          console.log(response);
+          this.isloggedin = response.success;
+          // this.authService.currentUser = response.token;
+          console.log(response.token);
           this.router.navigate(['/home'])
           this.loading = false;
        },
