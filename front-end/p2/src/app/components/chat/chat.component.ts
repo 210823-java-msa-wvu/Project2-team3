@@ -1,36 +1,42 @@
 // import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import Pusher from 'pusher-js/types/src/core/pusher';
-import { DiceService } from './dice.service';
+import Pusher from 'pusher-js';
+// import { FormsModule } from '@angular/forms';
 // import { User } from './user';
 // import { UserService } from './user.service';
 
+type Messages  = {
+  username: string;
+  message: string;
+};
+
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
-export class AppComponent implements OnInit{
-  
-  // public users: User[] = []; 
+export class ChatComponent implements OnInit{
+
+  // public users: User[] = [];
 
   username = 'username';
-  message  = ' ';
-  messages = [];
+  message  = '';
+  messages: Messages[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void{
     Pusher.logToConsole = true;
 
-    const pusher = new Pusher('118154b065358d96fe54', {
+    const pusher = new Pusher('8b393a4526b0c1792e2b', {
       cluster: 'us2'
     });
 
-    const channel = pusher.subscribe('chat');
-    channel.bind('message', data => {
-      this.messages.push(data)
+
+  const channel = pusher.subscribe('chat');
+    channel.bind('message', (data: Messages) => {
+      this.messages.push(data);
     });
   }
 
