@@ -16,6 +16,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UnautherizedComponent } from './components/unautherized/unautherized.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     AlertComponent,
     ProfileComponent,
     UnautherizedComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
