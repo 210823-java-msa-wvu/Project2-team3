@@ -13,6 +13,9 @@ export class AppComponent {
 
   currentUser: User = new User;
 
+  user: any| undefined ;
+
+
   constructor(private authService: AuthenticationService, private router: Router){
     this.authService.currentUser.subscribe(data => {
       this.currentUser = data;
@@ -22,6 +25,10 @@ export class AppComponent {
 
 
   ngOnInit(): void {
+    // this.user = JSON.parse(localStorage.getItem('user');
+    this.user = this.authService.loggedInUser;
 
+    console.log("user from local storage")
+    console.log(this.user);
   }
 }
