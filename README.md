@@ -40,3 +40,18 @@ User Story
   - RDS
   - S3
   - github
+
+### To clone our project :
+  > Git command line clone SSH:
+    ```git clone git@github.com:210823-java-msa-wvu/Project2-team3.git```
+    
+  > Git command line to clone HTTPS:
+    ```git clone https://github.com/210823-java-msa-wvu/Project2-team3.git ```
+    
+  > GitHub CLI to clone:
+    ``` gh repo clone 210823-java-msa-wvu/Project2-team3 ```
+    
+  > then redirct to project and run:
+  ``` npm install ```
+  
+ 
