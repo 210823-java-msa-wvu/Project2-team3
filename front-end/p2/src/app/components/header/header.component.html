@@ -26,6 +26,9 @@
                     </li>
                     </ng-container>
                     <ng-container *ngIf="currentUser?.success">
+                      <li class="nav-item">
+                        <a class="nav-link text-uppercase" routerLink="/dice" routerLinkActive="active" >dice</a>
+                      </li>
                       <li><a class="nav-link text-uppercase" (click)= "logout()" style="cursor: pointer;">Logout</a></li>
                     </ng-container>
                 </ul>
