@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="\"RevatureP2\".cards")
+@Table(name="cards")
 public class Card {
 
     @Id
