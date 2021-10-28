@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Pusher from 'pusher-js';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/_models/user';
 import { environment } from 'src/environments/environment';
 
 type Messages  = {
@@ -19,9 +21,13 @@ export class ChatComponent implements OnInit{
   username = 'username';
   message  = '';
   messages: Messages[] = [];
+  loggedInUser: User = new User()
 
-  constructor(private http: HttpClient) {}
 
+  constructor(private http: HttpClient, private authService: AuthenticationService) {
+    this.loggedInUser = this.authService.userLogin;
+
+  }
   ngOnInit(): void{
     Pusher.logToConsole = true;
 
