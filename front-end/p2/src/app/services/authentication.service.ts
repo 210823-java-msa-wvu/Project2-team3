@@ -58,7 +58,6 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
 
     this.expToken = storageUserAsStr;
-    // localStorage.setItem('user', )
     this.GetTokenDecoded();
     this.getTokenExpirationDate();
 
@@ -98,7 +97,7 @@ export class AuthenticationService {
     this.loggedInUser = localStorage.setItem('user', this.tokenPayload);
     this.userLogin =  JSON.parse(this.tokenPayload);
     console.log(this.tokenPayload);
-    console.log(this.userLogin.firstName);
+    // console.log(this.userLogin.firstName);
   }
 
   getTokenExpirationDate() {
@@ -113,6 +112,9 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
     this.currentUserSubject.next(new User);
+  }
+  refresh(): void {
+    window.location.reload();
   }
 
 }

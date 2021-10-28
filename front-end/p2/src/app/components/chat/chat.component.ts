@@ -18,7 +18,7 @@ type Messages  = {
 
 export class ChatComponent implements OnInit{
 
-  username = 'username';
+  // username : string | undefined;
   message  = '';
   messages: Messages[] = [];
   loggedInUser: User = new User()
@@ -26,10 +26,10 @@ export class ChatComponent implements OnInit{
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
     this.loggedInUser = this.authService.userLogin;
-
   }
   ngOnInit(): void{
     Pusher.logToConsole = true;
+    // console.log(this.loggedInUser.username);
 
     const pusher = new Pusher('8b393a4526b0c1792e2b', {
       cluster: 'us2'
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit{
 
   submit(): void{//'http://localhost:8080/chatapi/messages'
     this.http.post(`${environment.apiUrl}/chatapi/messages`, {
-      username: this.username,
+      username: this.loggedInUser.username,
       message: this.message
     }).subscribe(() => this.message = '');
   }
