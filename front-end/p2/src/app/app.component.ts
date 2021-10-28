@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouteConfigLoadStart, Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { User } from './_models/user';
 

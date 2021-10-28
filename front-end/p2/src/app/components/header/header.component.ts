@@ -11,12 +11,15 @@ import { User } from 'src/app/_models/user';
 export class HeaderComponent implements OnInit {
 
   currentUser: User = new User;
-  loggedInUser: User = new User()
+  loggedInUser: User = new User;
 
   constructor(private authService: AuthenticationService){
     this.authService.currentUser.subscribe(data => {
       this.currentUser = data;
       this.loggedInUser = this.authService.userLogin;
+      if(this.loggedInUser == null){
+        this.authService.refresh();
+      }
     });
 
   }

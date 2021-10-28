@@ -31,7 +31,7 @@
                       </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="logout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          {{ loggedInUser.firstName }} {{ loggedInUser.lastName }}
+                            {{ loggedInUser.firstName == null ? '' :loggedInUser.firstName }} {{  loggedInUser.lastName == null ? '' :loggedInUser.lastName  }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="logout">
                           <li><a class="dropdown-item nav-link text-uppercase" (click)= "logout()" style="cursor: pointer;">Logout</a></li>
