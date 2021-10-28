@@ -29,6 +29,8 @@ public class UserService {
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             //Username has to be unique(exception)
             newUser.setUsername(newUser.getUsername());
+            newUser.setFirstName(newUser.getFirstName());
+            newUser.setLastName(newUser.getLastName());
             //Make sure that password and confirmPassword match
             //we don't persist and show the confirmPassword
             newUser.setConfirmPassword("");

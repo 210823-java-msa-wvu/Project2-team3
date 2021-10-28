@@ -13,7 +13,7 @@ export class AppComponent {
 
   currentUser: User = new User;
 
-  user: any| undefined ;
+  user: User| undefined ;
 
 
   constructor(private authService: AuthenticationService, private router: Router){
@@ -26,9 +26,9 @@ export class AppComponent {
 
   ngOnInit(): void {
     // this.user = JSON.parse(localStorage.getItem('user');
-    this.user = this.authService.loggedInUser;
+    this.user = this.authService.userLogin;
 
     console.log("user from local storage")
-    console.log(this.user);
+    console.log(this.user.username);
   }
 }

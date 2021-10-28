@@ -11,12 +11,12 @@ import { User } from 'src/app/_models/user';
 export class HeaderComponent implements OnInit {
 
   currentUser: User = new User;
-    isLoggedIn:boolean = false;
-
+  loggedInUser: User = new User()
 
   constructor(private authService: AuthenticationService){
     this.authService.currentUser.subscribe(data => {
       this.currentUser = data;
+      this.loggedInUser = this.authService.userLogin;
     });
 
   }
@@ -24,7 +24,8 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-   console.log(this.currentUser);
+    console.log("from header component");
+    console.log(this.loggedInUser);
   }
 
 

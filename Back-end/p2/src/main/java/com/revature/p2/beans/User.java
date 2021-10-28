@@ -40,9 +40,9 @@ public class User implements UserDetails {
     private String confirmPassword;
     private Date createdAt;
     private Date updatedAt;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "role", nullable = false)
+//    private Role role;
 
 
     @PrePersist

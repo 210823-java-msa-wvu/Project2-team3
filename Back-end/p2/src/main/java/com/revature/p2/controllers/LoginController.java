@@ -28,59 +28,59 @@ import static com.revature.p2.security.SecurityConstants.TOKEN_PREFIX;
 @RequestMapping("/api")
 @Slf4j
 public class LoginController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    UserValidator userValidator;
-    @Autowired
-    JwtTokenProvider tokenProvider;
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    private MapValidationErrorService mapValidationErrorService;
-
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
-        //Validate Password match
-        log.info("Getting User Attributes in register and checking password" );
-        userValidator.validate(user, result);
-
-        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null){
-            log.error("Error Register in: {}", errorMap);
-            return errorMap;
-        }
-
-        User newUser = userService.registerUser(user);
-
-
-        return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
-        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null){
-            log.error("Error logging in: {}", errorMap);
-
-            return errorMap;
-        }
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt =TOKEN_PREFIX + tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
-    }
-
-    @GetMapping("/users/all")
-    public List<User> getAllUsers(){
-        log.info("Getting all users");
-        return userService.getAllUsers();
-    }
+//    @Autowired
+//    private UserService userService;
+//    @Autowired
+//    UserValidator userValidator;
+//    @Autowired
+//    JwtTokenProvider tokenProvider;
+//    @Autowired
+//    AuthenticationManager authenticationManager;
+//    @Autowired
+//    private MapValidationErrorService mapValidationErrorService;
+//
+//
+//    @PostMapping("/register")
+//    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
+//        //Validate Password match
+//        log.info("Getting User Attributes in register and checking password" );
+//        userValidator.validate(user, result);
+//
+//        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+//        if (errorMap != null){
+//            log.error("Error Register in: {}", errorMap);
+//            return errorMap;
+//        }
+//
+//        User newUser = userService.registerUser(user);
+//
+//
+//        return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+//    }
+//
+//    @PostMapping("/login")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
+//        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+//        if (errorMap != null){
+//            log.error("Error logging in: {}", errorMap);
+//
+//            return errorMap;
+//        }
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsername(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt =TOKEN_PREFIX + tokenProvider.generateToken(authentication);
+//        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
+//    }
+//
+//    @GetMapping("/users/all")
+//    public List<User> getAllUsers(){
+//        log.info("Getting all users");
+//        return userService.getAllUsers();
+//    }
 }

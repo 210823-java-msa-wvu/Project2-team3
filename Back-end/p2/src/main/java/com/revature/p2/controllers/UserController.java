@@ -1,54 +1,87 @@
 package com.revature.p2.controllers;
 
-
 import com.revature.p2.beans.User;
-import com.revature.p2.repositories.UserRepo;
+import com.revature.p2.payload.JWTLoginSuccessResponse;
+import com.revature.p2.payload.LoginRequest;
+import com.revature.p2.security.JwtTokenProvider;
+import com.revature.p2.services.MapValidationErrorService;
+import com.revature.p2.services.UserService;
+import com.revature.p2.validators.UserValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import java.util.List;
 
+import static com.revature.p2.security.SecurityConstants.TOKEN_PREFIX;
+
 @RestController
-@RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api")
+@Slf4j
 public class UserController {
-
-    // instead of having a log object here and then writing log.trace() everywhere we want logging to happen
-    // we are going to create an Aspect with Advice to take care of it - see com.revature.aspects.LoggingAspect
-
-    // We haven't written any code or implementation for this (it's an interface)
-    // But all of the methods that we are using in this class come from the JpaRepository<T, ID>
-    private UserRepo userRepo;
-
     @Autowired
-    public UserController(UserRepo userRepo) {
-        this.userRepo = userRepo;
-    }
+    private UserService userService;
+    @Autowired
+    UserValidator userValidator;
+    @Autowired
+    JwtTokenProvider tokenProvider;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
-    }
+    @PostMapping("/register")
+    @CrossOrigin
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
+        //Validate Password match
+        log.info("Getting User Attributes in register and checking password" );
+        userValidator.validate(user, result);
 
-    @GetMapping(path="/{id}")
-    public User getById(@PathVariable("id") int id) {
-        return userRepo.getById(id);
-    }
-
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public User addUser(@RequestBody User user) {
-        return userRepo.save(user);
-    }
-
-    @PutMapping(path="/{id}")
-    public void updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        if (id == user.getId()) {
-            userRepo.save(user);// this save method is coming from the JpaRepository -> it is like Hibernate's saveOrUpdate();
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null){
+            log.error("Error Register in: {}", errorMap);
+            return errorMap;
         }
+
+        User newUser = userService.registerUser(user);
+
+
+        return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+    }
+    @CrossOrigin
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null){
+            log.error("Error logging in: {}", errorMap);
+
+            return errorMap;
+        }
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt =TOKEN_PREFIX + tokenProvider.generateToken(authentication);
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
     }
 
-    @DeleteMapping(path="/{id}")
-    public void deleteUser(@PathVariable("id") int id) {
-        userRepo.delete(userRepo.getById(id));
-    }
+//    @DeleteMapping(path="/{id}")
+//    public void deleteUser(@PathVariable("id") int id) {
+//        userRepo.delete(userRepo.getById(id));
+//    }
 
 }
