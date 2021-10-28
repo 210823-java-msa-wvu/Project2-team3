@@ -17,9 +17,9 @@ export class HeaderComponent implements OnInit {
     this.authService.currentUser.subscribe(data => {
       this.currentUser = data;
       this.loggedInUser = this.authService.userLogin;
-      if(this.loggedInUser == null){
-        this.authService.refresh();
-      }
+      // if(this.loggedInUser == null){
+      //   this.authService.refresh();
+      // }
     });
 
   }

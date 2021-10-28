@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit{
   // username : string | undefined;
   message  = '';
   messages: Messages[] = [];
-  loggedInUser: User = new User()
+  loggedInUser: User = new User();
 
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
@@ -43,10 +43,11 @@ export class ChatComponent implements OnInit{
     });
   }
 
-  submit(): void{//'http://localhost:8080/chatapi/messages'
-    this.http.post(`${environment.apiUrl}/chatapi/messages`, {
+  submit(): void{//'http://localhost:8000/chatapi/messages'
+    this.http.post(`${environment.apiUrl}/chatapi/messages`, {//
       username: this.loggedInUser.username,
       message: this.message
+      //withCredentials: true
     }).subscribe(() => this.message = '');
   }
 
