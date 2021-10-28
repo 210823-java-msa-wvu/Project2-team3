@@ -4,7 +4,7 @@ package com.revature.p2.beans;
 import javax.persistence.*;
 
 @Entity
-@Table(name="\"RevatureP2\".messages")
+@Table(name="dnd_messages")
 public class Message {
 
     @Id

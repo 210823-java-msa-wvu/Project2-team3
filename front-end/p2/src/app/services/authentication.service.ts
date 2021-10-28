@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import {environment} from '../../environments/environment'
 import { map, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -34,7 +34,9 @@ interface loggedInResponse{
 })
 export class AuthenticationService {
 
-  // isloggedin: boolean | undefined;
+  userLogin: User = new User();
+
+  loggedInUser: any | undefined;
 
   expToken: any;
   tokenPayload: any;
@@ -42,6 +44,9 @@ export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<User>
   public currentUser: Observable<User>;
+
+  headers = new HttpHeaders().set('content-type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*')
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
     let storageUser;
@@ -61,6 +66,10 @@ export class AuthenticationService {
    public get currentUserValue(): User{
      return this.currentUserSubject.value;
    }
+
+  register(user: User) {
+    return this.http.post(`${environment.apiUrl}/api/register`, user);
+  }
 
   login(user: User){
     return this.http.post<any>(`${environment.apiUrl}/api/login`, user).pipe(
@@ -82,7 +91,15 @@ export class AuthenticationService {
 
   GetTokenDecoded() {
     console.log(this.jwtHelper.decodeToken(this.expToken))
+    // console.log(this.jwtHelper.decodeToken(this.expToken).id);
+
+
+    // this.userLogin.id = this.jwtHelper.decodeToken(this.expToken).id;
+    // this.userLogin.username = this.jwtHelper.decodeToken(this.expToken).username;
+    console.log(this.userLogin.username);
+
     this.tokenPayload = JSON.stringify(this.jwtHelper.decodeToken(this.expToken));
+    this.loggedInUser = localStorage.setItem('user', this.tokenPayload);
     console.log(this.tokenPayload);
   }
 
@@ -96,11 +113,8 @@ export class AuthenticationService {
 
   logout(){
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('user');
     this.currentUserSubject.next(new User);
   }
-
-
-
-
 
 }

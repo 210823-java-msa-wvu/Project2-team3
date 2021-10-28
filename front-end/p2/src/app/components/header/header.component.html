@@ -25,7 +25,7 @@
                       <a class="nav-link text-uppercase" routerLink="/login" routerLinkActive="active" >Login</a>
                     </li>
                     </ng-container>
-                    <ng-container ><!--*ngIf="currentUser?.success"-->
+                    <ng-container *ngIf="currentUser?.success"><!---->
                       <li class="nav-item">
                         <a class="nav-link text-uppercase" routerLink="/dice" routerLinkActive="active" >dice</a>
                       </li>

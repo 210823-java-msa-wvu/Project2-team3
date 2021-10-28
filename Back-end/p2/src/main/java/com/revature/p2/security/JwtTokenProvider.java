@@ -16,15 +16,19 @@ import static com.revature.p2.security.SecurityConstants.SECRET;
 public class JwtTokenProvider {
     //Generate token
     public String generateToken(Authentication authentication){
-        DNDUser DNDUser = (DNDUser) authentication.getPrincipal();
+        DNDUser user = (DNDUser) authentication.getPrincipal();
 
         Date now = new Date(System.currentTimeMillis());
         Date expiryDate = new Date(now.getTime()+EXPIRATION_TIME);
-        String userId = Long.toString(DNDUser.getId());
+        String userId = Integer.toString(user.getId());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", (Long.toString(DNDUser.getId())));
-        claims.put("username", DNDUser.getUsername());
-//        claims.put("fullName", user.getFullName());
+        claims.put("id", (Long.toString(user.getId())));
+        claims.put("username", user.getUsername());
+        //claims.put("fullName", user.getFullName());
+        claims.put("id", (Integer.toString(user.getId())));
+        claims.put("username", user.getUsername());
+        claims.put("firstName", user.getFirstName());
+        claims.put("lastName", user.getLastName());
         return Jwts.builder()
                 .setSubject(userId)
                 .setClaims(claims)

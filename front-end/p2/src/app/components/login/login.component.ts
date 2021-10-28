@@ -13,6 +13,10 @@ import { AlertComponent } from '../alert/alert.component';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  username: string = '';
+
+
   user: User = new User();
   isloggedin: boolean | undefined;
   loading = false;
@@ -27,6 +31,8 @@ export class LoginComponent implements OnInit {
       )
   });
 
+  loggedIn:any | undefined;
+
   constructor(
     private authService: AuthenticationService,
     private alertService: AlertService,
@@ -40,6 +46,7 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   ngOnInit(): void {
+    console.log(this.username);
     if(this.authService.currentUserValue?.id){
       this.router.navigate(['/home']);
     }
@@ -63,6 +70,8 @@ export class LoginComponent implements OnInit {
           console.log(this);
           //navigate to some other route
           console.log(response);
+          // this.loggedIn = JSON.parse(response);
+          // console.log(this.loggedIn);
           this.isloggedin = response.success;
           // this.authService.currentUser = response.token;
           console.log(response.token);

@@ -1,10 +1,7 @@
-// import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import  Pusher from 'pusher-js';
-// import { FormsModule } from '@angular/forms';
-// import { User } from './user';
-// import { UserService } from './user.service';
+import Pusher from 'pusher-js';
+import { environment } from 'src/environments/environment';
 
 type Messages  = {
   username: string;
@@ -18,8 +15,6 @@ type Messages  = {
 })
 
 export class ChatComponent implements OnInit{
-
-  // public users: User[] = [];
 
   username = 'username';
   message  = '';
@@ -42,11 +37,10 @@ export class ChatComponent implements OnInit{
     });
   }
 
-  submit(): void{
-    this.http.post('http://localhost:8080/chatapi/messages', {
+  submit(): void{//'http://localhost:8080/chatapi/messages'
+    this.http.post(`${environment.apiUrl}/chatapi/messages`, {
       username: this.username,
       message: this.message
-      //this.messages.push({username: this.username, message: this.message})
     }).subscribe(() => this.message = '');
   }
 
