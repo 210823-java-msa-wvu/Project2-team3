@@ -1,6 +1,6 @@
 package com.revature.p2.controllers;
 
-import com.revature.p2.beans.User;
+import com.revature.p2.beans.DNDUser;
 import com.revature.p2.payload.JWTLoginSuccessResponse;
 import com.revature.p2.payload.LoginRequest;
 import com.revature.p2.security.JwtTokenProvider;
@@ -41,10 +41,10 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody DNDUser DNDUser, BindingResult result){
         //Validate Password match
         log.info("Getting User Attributes in register and checking password" );
-        userValidator.validate(user, result);
+        userValidator.validate(DNDUser, result);
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null){
@@ -52,10 +52,10 @@ public class LoginController {
             return errorMap;
         }
 
-        User newUser = userService.registerUser(user);
+        DNDUser newDNDUser = userService.registerUser(DNDUser);
 
 
-        return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        return  new ResponseEntity<DNDUser>(newDNDUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
@@ -79,7 +79,7 @@ public class LoginController {
     }
 
     @GetMapping("/users/all")
-    public List<User> getAllUsers(){
+    public List<DNDUser> getAllUsers(){
         log.info("Getting all users");
         return userService.getAllUsers();
     }

@@ -1,6 +1,6 @@
 package com.revature.p2.security;
 
-import com.revature.p2.beans.User;
+import com.revature.p2.beans.DNDUser;
 import com.revature.p2.services.CustomUserDetailsService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +37,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)){
 
                 Integer userId = jwtTokenProvider.getUserIdFromJWT(jwt) ;
-                User userDetails = customUserDetailsService.loadUserById(userId);
+                DNDUser DNDUserDetails = customUserDetailsService.loadUserById(userId);
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Collections.emptyList());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(DNDUserDetails, null, Collections.emptyList());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

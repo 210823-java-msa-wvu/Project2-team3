@@ -20,7 +20,11 @@
       "es2018",
       "dom"
     ],
-    // "baseUrl": "src",
+    "paths": {
+      "tslib" : ["p2/node_modules/tslib/tslib.d.ts"]
+      
+    },
+    //"baseUrl": "src",
     // "paths": {
     //     "@/*": [
     //         "app/*"

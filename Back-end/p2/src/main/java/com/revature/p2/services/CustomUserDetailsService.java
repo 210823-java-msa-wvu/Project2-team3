@@ -1,7 +1,7 @@
 package com.revature.p2.services;
 
 
-import com.revature.p2.beans.User;
+import com.revature.p2.beans.DNDUser;
 import com.revature.p2.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,14 +19,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
-        if (user == null) new UsernameNotFoundException("Username not found");
-        return user;
+        DNDUser DNDUser = userRepo.findByUsername(username);
+        if (DNDUser == null) new UsernameNotFoundException("Username not found");
+        return DNDUser;
     }
     @Transactional
-    public User loadUserById(Integer id){
-        User user = userRepo.getById(id);
-        if (user==null) new UsernameNotFoundException("Username not found");
-        return user;
+    public DNDUser loadUserById(Integer id){
+        DNDUser DNDUser = userRepo.getById(id);
+        if (DNDUser ==null) new UsernameNotFoundException("Username not found");
+        return DNDUser;
     }
 }

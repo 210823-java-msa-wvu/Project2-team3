@@ -1,6 +1,6 @@
 package com.revature.p2.security;
 
-import com.revature.p2.beans.User;
+import com.revature.p2.beans.DNDUser;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -16,14 +16,14 @@ import static com.revature.p2.security.SecurityConstants.SECRET;
 public class JwtTokenProvider {
     //Generate token
     public String generateToken(Authentication authentication){
-        User user = (User) authentication.getPrincipal();
+        DNDUser DNDUser = (DNDUser) authentication.getPrincipal();
 
         Date now = new Date(System.currentTimeMillis());
         Date expiryDate = new Date(now.getTime()+EXPIRATION_TIME);
-        String userId = Long.toString(user.getId());
+        String userId = Long.toString(DNDUser.getId());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", (Long.toString(user.getId())));
-        claims.put("username", user.getUsername());
+        claims.put("id", (Long.toString(DNDUser.getId())));
+        claims.put("username", DNDUser.getUsername());
 //        claims.put("fullName", user.getFullName());
         return Jwts.builder()
                 .setSubject(userId)

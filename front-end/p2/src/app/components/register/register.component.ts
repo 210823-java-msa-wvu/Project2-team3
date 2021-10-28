@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
        error: (error) =>{
 
 
-         console.log(error.error);
+         console.log(error.error);//400: bad request
 
          this.alertService.error("Username already taken or password not Matched", true);
           this.loading = false;

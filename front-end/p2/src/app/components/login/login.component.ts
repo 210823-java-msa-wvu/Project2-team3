@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    
     this.submitted = true;
     //reset alerts on submit
     this.alertService.clear();
@@ -79,7 +80,7 @@ export class LoginComponent implements OnInit {
        }
 
      }
-    );
+    ); 
   }
 
 }

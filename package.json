@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/core": "^12.2.11",
+    "pusher-js": "^7.0.3"
+  }
+}

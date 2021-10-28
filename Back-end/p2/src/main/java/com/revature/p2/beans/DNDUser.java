@@ -20,11 +20,11 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "\"RevatureP2\".users")
-public class User implements UserDetails {
+@Table(name = "dnd_users")
+public class DNDUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Email(message = "Username needs to be email")
     @NotBlank(message = "Username is required")
     @Column(unique = true)
@@ -34,19 +34,25 @@ public class User implements UserDetails {
     private String password;
     @Transient
     private String confirmPassword;
-    private Date createdAt;
-    private Date updatedAt;
+//    @Column(name="created_at")
+//    private Date createdAt;
+//    @Column(name="updated_at")
+//    private Date updatedAt;
 
-
-    @PrePersist
-    protected  void onCreate(){
-        this.createdAt = new Date();
+    public DNDUser(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
+//    @PrePersist
+//    protected  void onCreate(){
+//        this.createdAt = new Date();
+//    }
+//
+//    @PreUpdate
+//    protected void onUpdate(){
+//        this.updatedAt = new Date();
+//    }
 
     /*
     * UserDetails interface methods from Spring Security
