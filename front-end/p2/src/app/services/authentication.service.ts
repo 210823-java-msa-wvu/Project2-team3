@@ -75,7 +75,9 @@ export class AuthenticationService {
     return this.http.post<any>(`${environment.apiUrl}/api/login`, user).pipe(
       map(response => {
         if(response){
-          localStorage.setItem('currentUser', JSON.stringify(response));
+        // this.GetTokenDecoded(response.token)
+        localStorage.setItem('currentUser', JSON.stringify(response));
+          // localStorage.setItem('currentUser', JSON.parse(response));
           this.currentUserSubject.next(response);
         }
         return response;
@@ -91,16 +93,11 @@ export class AuthenticationService {
 
   GetTokenDecoded() {
     console.log(this.jwtHelper.decodeToken(this.expToken))
-    // console.log(this.jwtHelper.decodeToken(this.expToken).id);
-
-
-    // this.userLogin.id = this.jwtHelper.decodeToken(this.expToken).id;
-    // this.userLogin.username = this.jwtHelper.decodeToken(this.expToken).username;
-    console.log(this.userLogin.username);
-
     this.tokenPayload = JSON.stringify(this.jwtHelper.decodeToken(this.expToken));
     this.loggedInUser = localStorage.setItem('user', this.tokenPayload);
+    this.userLogin =  JSON.parse(this.tokenPayload);
     console.log(this.tokenPayload);
+    // console.log(this.userLogin.firstName);
   }
 
   getTokenExpirationDate() {
@@ -116,5 +113,9 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     this.currentUserSubject.next(new User);
   }
+  refresh(): void {
+    window.location.reload();
+  }
 
 }
+

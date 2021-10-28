@@ -1,7 +1,7 @@
 <div class="container">
   <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
     <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-      <input class="fs-5 fw-semibold" [(ngModel)]="username"/>
+      <input type="text"  name="username" class="fs-5 fw-semibold"  value="{{loggedInUser.username == null ? '' : loggedInUser.username }}" readonly disabled/>
     </div>
     <div class="list-group list-group-flush border-bottom scrollarea">
       <div class="list-group-item list-group-item-action py-3 lh-tight"
@@ -15,7 +15,7 @@
     </div>
   </div>
   <form (submit)="submit()">
-    <input class="form-control" placeholder="Write a message." [(ngModel)]="message" name="messageName"/><!-- [value]="message" 
+    <input class="form-control" placeholder="Write a message." [(ngModel)]="message" name="messageName"/><!-- [value]="message"
       (change)="message=($any($event.target.value))" -->
   </form>
 </div>

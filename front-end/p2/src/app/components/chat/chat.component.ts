@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Pusher from 'pusher-js';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/_models/user';
 import { environment } from 'src/environments/environment';
 
 type Messages  = {
@@ -16,14 +18,18 @@ type Messages  = {
 
 export class ChatComponent implements OnInit{
 
-  username = 'username';
+  // username : string | undefined;
   message  = '';
   messages: Messages[] = [];
+  loggedInUser: User = new User()
 
-  constructor(private http: HttpClient) {}
 
+  constructor(private http: HttpClient, private authService: AuthenticationService) {
+    this.loggedInUser = this.authService.userLogin;
+  }
   ngOnInit(): void{
     Pusher.logToConsole = true;
+    // console.log(this.loggedInUser.username);
 
     const pusher = new Pusher('8b393a4526b0c1792e2b', {
       cluster: 'us2'
@@ -37,9 +43,9 @@ export class ChatComponent implements OnInit{
     });
   }
 
-  submit(): void{//
-    this.http.post('http://localhost:8000/chatapi/messages', {//`${environment.apiUrl}/chatapi/messages`
-      username: this.username,
+  submit(): void{//'http://localhost:8080/chatapi/messages'
+    this.http.post(`${environment.apiUrl}/chatapi/messages`, {
+      username: this.loggedInUser.username,
       message: this.message
     }).subscribe(() => this.message = '');
   }
