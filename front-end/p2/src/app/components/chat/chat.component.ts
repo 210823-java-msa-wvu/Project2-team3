@@ -37,8 +37,8 @@ export class ChatComponent implements OnInit{
     });
   }
 
-  submit(): void{//'http://localhost:8080/chatapi/messages'
-    this.http.post(`${environment.apiUrl}/chatapi/messages`, {
+  submit(): void{//
+    this.http.post('http://localhost:8000/chatapi/messages', {//`${environment.apiUrl}/chatapi/messages`
       username: this.username,
       message: this.message
     }).subscribe(() => this.message = '');
